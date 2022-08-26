@@ -7,7 +7,9 @@ const App: FC = () => {
 	const [toDos, setToDos] = useState([]);
 
 	useEffect(() => {
-		getAllToDos().then((res) => setToDos(res.data));
+		getAllToDos().then((res) => {
+			setToDos(res.data);
+		});
 	}, []);
 
 	return (

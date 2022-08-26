@@ -7,6 +7,7 @@ import {
 	deleteToDoCall,
 	getToDoByName,
 } from "../../API/toDoAPI";
+import "./ToDoDetail.styles.scss";
 
 export type toDoProps = {
 	expireDate: "string";
@@ -66,60 +67,52 @@ const ToDoDetail = () => {
 
 	return (
 		<>
-			<div
-				style={{
-					border: "1px solid black",
-					display: "flex",
-					flexDirection: "column",
-					width: "50%",
-					borderRadius: "20px",
-					padding: "20px",
-					margin: "100px auto",
-				}}
-			>
+			<div className="title">EDIT TO DO</div>
+			<div className="subtitle">Edit or delete your existing to do.</div>
+			<div className="toDoDetailContainer">
 				{toDo && (
 					<>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							<span>Name:</span> <span>{toDo?.name}</span>
+						<div className="toDoRow">
+							<span className="toDoDetailHeader">Name:</span>{" "}
+							<span>{toDo?.name}</span>
 						</div>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							Expiration Date:{" "}
+						<div className="toDoRow">
+							<span className="toDoDetailHeader">Expiration Date: </span>
 							<input
-								style={{ width: "80%", textAlign: "right" }}
 								value={toDo.expireDate}
 								onChange={handleChange}
 								name="expireDate"
 							></input>
 						</div>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							Description:{" "}
+						<div className="toDoRow">
+							<span className="toDoDetailHeader"> Description:</span>
 							<input
-								style={{ width: "80%", textAlign: "right" }}
 								value={toDo?.description}
 								onChange={handleChange}
 								name="description"
+								maxLength={80}
 							></input>
 						</div>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							<span>Creation Date:</span>{" "}
+						<div className="toDoRow">
+							<span className="toDoDetailHeader">Creation Date:</span>
 							<span>{moment(toDo?.creationDate).format("DD/MM/YYYY")}</span>
 						</div>
-						<div>On time? {isOnTime ? <span>YES </span> : <span>NO</span>}</div>
+						<div className="toDoRow">
+							<span className="toDoDetailHeader">On time? </span>
+							{isOnTime ? <span>YES </span> : <span>NO</span>}
+						</div>
 					</>
 				)}
-				<div
-					style={{
-						marginTop: 15,
-						display: "flex",
-						flexDirection: "row",
-						justifyContent: "space-around",
-					}}
-				>
-					<Link to={`/`}>
-						<div>GO BACK</div>
+				<div className="bottomRow">
+					<Link to={`/`} style={{ textDecoration: " none" }}>
+						<div className="goBackDetail">GO BACK</div>
 					</Link>
-					<button onClick={deleteToDo}>DELETE TO DO</button>
-					<button onClick={submitChange}>EDIT TO DO</button>
+					<div className="deleteToDoDetail" onClick={deleteToDo}>
+						DELETE TO DO
+					</div>
+					<div className="editToDoDetail" onClick={submitChange}>
+						EDIT TO DO
+					</div>
 				</div>
 			</div>
 		</>

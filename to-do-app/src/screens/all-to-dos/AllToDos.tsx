@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ToDo, { ToDoProps } from "../../components/to-do/ToDo";
+import "./AllToDos.styles.scss";
 
 type AllToDosProps = {
 	toDos: ToDoProps[];
@@ -9,27 +10,14 @@ type AllToDosProps = {
 const AllToDos = ({ toDos }: AllToDosProps) => {
 	return (
 		<>
-			<div>TO DO APP</div>
-			<div
-				style={{
-					flexDirection: "row",
-					display: "flex",
-					justifyContent: "space-around",
-					flexWrap: "wrap",
-					margin: "40px auto",
-					marginTop: "5%",
-				}}
-			>
+			<div className="title">TO DO APP</div>
+			<div className="subtitle">
+				Helping you to easily keep track of your tasks
+			</div>
+			<div className="allToDosContainer">
 				{toDos.map((toDo) => {
 					return (
-						<div
-							style={{
-								maxWidth: "30%",
-								border: "1px solid tomato",
-								flexWrap: "wrap",
-								minWidth: "25%",
-							}}
-						>
+						<div className="toDoContainer">
 							<ToDo
 								expireDate={toDo.expireDate}
 								creationDate={toDo.creationDate}
@@ -41,9 +29,9 @@ const AllToDos = ({ toDos }: AllToDosProps) => {
 					);
 				})}
 			</div>
-			<div style={{ position: "absolute", bottom: 100, right: 100 }}>
-				<Link to={"todo/create"}>
-					<button>ADD NEW TODO</button>
+			<div className="addToDoContainer">
+				<Link to={"todo/create"} style={{ textDecoration: "none" }}>
+					<div>ADD NEW TODO</div>
 				</Link>
 			</div>
 		</>

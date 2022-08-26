@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
-import { createOrEditToDoCall } from "../../API/toDoAPI";
+import { createOrEditToDoCall, API_ID } from "../../API/toDoAPI";
+import "./CreateToDo.styles.scss";
 
 export type ToDoProps = {
 	expireDate: "string";
@@ -20,7 +21,7 @@ const CreateToDoScreen = () => {
 		creationDate: "",
 		description: "",
 		name: "",
-		id: "7471f91e-9d1f-42f3-bad0-0d145577f6e6",
+		id: API_ID,
 	});
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,42 +58,30 @@ const CreateToDoScreen = () => {
 
 	return (
 		<>
-			<div
-				style={{
-					border: "1px solid black",
-					display: "flex",
-					flexDirection: "column",
-					width: "50%",
-					borderRadius: "20px",
-					padding: "20px",
-					margin: "100px auto",
-				}}
-			>
+			<div className="title">CREATE NEW TO DO</div>
+			<div className="createToDoContainer">
 				{toDo && (
 					<>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							<span>Name:</span>{" "}
+						<div className="createToDoRow">
+							<span className="toDoDetailHeader">Name:</span>
 							<input
-								style={{ width: "80%", textAlign: "right" }}
 								value={toDo.name}
 								name="name"
 								onChange={handleChange}
 							></input>
 						</div>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							Expiration Date:{" "}
+						<div className="createToDoRow">
+							<span className="toDoDetailHeader"> Expiration Date: </span>
 							<input
-								style={{ width: "80%", textAlign: "right" }}
 								value={toDo.expireDate}
 								placeholder="DD/MM/YYYY"
 								name="expireDate"
 								onChange={handleChange}
 							></input>
 						</div>
-						<div style={{ display: "flex", justifyContent: "space-between" }}>
-							Description:{" "}
+						<div className="createToDoRow">
+							<span className="toDoDetailHeader">Description: </span>
 							<input
-								style={{ width: "80%", textAlign: "right" }}
 								value={toDo?.description}
 								name="description"
 								onChange={handleChange}
@@ -100,18 +89,13 @@ const CreateToDoScreen = () => {
 						</div>
 					</>
 				)}
-				<div
-					style={{
-						marginTop: 15,
-						display: "flex",
-						flexDirection: "row",
-						justifyContent: "space-around",
-					}}
-				>
-					<Link to={`/`}>
-						<div>GO BACK</div>
+				<div className="bottomRow">
+					<Link to={`/`} style={{ textDecoration: " none" }}>
+						<div className="createGoBack">GO BACK</div>
 					</Link>
-					<button onClick={createNewToDo}>CREATE TO DO</button>
+					<div className="createToDo" onClick={createNewToDo}>
+						CREATE TO DO
+					</div>
 				</div>
 			</div>
 		</>

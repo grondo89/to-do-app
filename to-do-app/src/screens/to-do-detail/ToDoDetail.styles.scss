@@ -1,0 +1,104 @@
+@import "../../styles/styles.scss";
+
+.toDoDetailContainer {
+	border: 1px solid #111d5e;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	border-radius: 20px;
+	padding: 20px;
+	margin: 70px auto;
+	color: #111d5e;
+
+	&:hover {
+		box-shadow: 6px 4px 6px rgba(46, 54, 65, 0.2);
+	}
+}
+.toDoRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
+	font-family: $primary_medium;
+	font-size: 16px;
+
+	.toDoDetailHeader {
+		font-family: $primary_bold;
+	}
+
+	input {
+		width: 80%;
+		text-align: right;
+		border: 1px solid #111d5e;
+		border-radius: 8px;
+		font-family: $primary_medium;
+		font-size: 16px;
+		color: #111d5e;
+	}
+}
+
+.bottomRow {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+	.editToDoDetail {
+		cursor: pointer;
+		width: 160px;
+		height: 30px;
+		text-align: center;
+		justify-content: center;
+		border-radius: 20px;
+		background-color: yellowgreen;
+		border: 1px solid yellowgreen;
+		color: white;
+		font-size: 18px;
+		font-family: $primary_bold;
+
+		&:hover {
+			background-color: yellow;
+			box-shadow: 6px 4px 6px rgba(46, 54, 65, 0.2);
+			color: #111d5e;
+			border: yellow;
+		}
+	}
+
+	.deleteToDoDetail {
+		cursor: pointer;
+		width: 160px;
+		height: 30px;
+		text-align: center;
+		vertical-align: baseline;
+		justify-content: center;
+		border-radius: 20px;
+		background-color: #d1005d;
+		border: 1px solid #d1005d;
+		color: white;
+		font-size: 18px;
+		font-family: $primary_bold;
+		&:hover {
+			background-color: #ff467b;
+			box-shadow: 6px 4px 6px rgba(46, 54, 65, 0.2);
+			border: #ff467b;
+		}
+	}
+
+	.goBackDetail {
+		border: 1px solid #111d5e;
+		color: #111d5e;
+		border-radius: 20px;
+		width: 160px;
+		height: 30px;
+		text-align: center;
+		vertical-align: middle;
+		font-size: 18px;
+		font-family: $primary_bold;
+
+		&:hover {
+			background-color: #111d5e;
+			box-shadow: 6px 4px 6px rgba(46, 54, 65, 0.2);
+			border: #111d5e;
+			color: white;
+		}
+	}
+}

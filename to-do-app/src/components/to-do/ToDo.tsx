@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { deleteToDoCall } from "../../API/toDoAPI";
+import "./ToDo.styles.scss";
 
 export type ToDoProps = {
 	expireDate: "string";
@@ -31,75 +32,34 @@ const ToDo = ({
 	return (
 		<>
 			<div
-				style={{
-					border: "1px solid black",
-					display: "flex",
-					flexDirection: "column",
-					width: "100%",
-					borderRadius: "20px",
-					padding: "20px",
-					marginBottom: "5%",
-				}}
+				className={
+					isOnTime ? "singleToDoContainerOnTime" : "singleToDoContainerExpired"
+				}
 			>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						marginBottom: "1%",
-					}}
-				>
+				<div className="toDoRowMenu">
 					<span>Name: </span> <span> {name}</span>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						marginBottom: "1%",
-					}}
-				>
+				<div className="toDoRowMenu">
 					<span>Expiration Date: </span> <span> {expireDate}</span>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						marginBottom: "1%",
-					}}
-				>
+				<div className="toDoRowMenu">
 					<span>Description: </span>
 					<span style={{ maxWidth: "70%" }}> {description}</span>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						marginBottom: "1%",
-					}}
-				>
+				<div className="toDoRowMenu">
 					<span>Creation Date: </span>{" "}
 					<span> {moment(creationDate).format("DD/MM/YYYY")}</span>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						marginBottom: "1%",
-					}}
-				>
+				<div className="toDoRowMenu">
 					On time? {isOnTime ? <span>YES </span> : <span>NO</span>}{" "}
 				</div>
-				<div
-					style={{
-						marginTop: 5,
-						display: "flex",
-						flexDirection: "row",
-						justifyContent: "space-around",
-					}}
-				>
-					<Link to={`/todo/${name}`}>
-						<div>EDIT</div>
+				<div className="bottomRowMenu">
+					<Link to={`/todo/${name}`} style={{ textDecoration: "none" }}>
+						<div className="editToDo">EDIT</div>
 					</Link>
-					<button onClick={deleteToDo}>DELETE</button>
+					<div className="deleteToDo" onClick={deleteToDo}>
+						DELETE
+					</div>
 				</div>
 			</div>
 		</>

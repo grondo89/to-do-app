@@ -1,0 +1,19 @@
+@font-face {
+	font-family: "JoannaSansNova-Bold";
+	src: local("JoannaSansNova-Bold"),
+		url(../assets/fonts/JoannaSansNova-Bold.ttf) format("truetype");
+}
+@font-face {
+	font-family: "JoannaSansNova-Medium";
+	src: local("JoannaSansNova-Medium"),
+		url(../assets/fonts/JoannaSansNova-Medium.ttf) format("truetype");
+}
+@font-face {
+	font-family: "JoannaSansNova-Regular";
+	src: local("JoannaSansNova-Regular"),
+		url(../assets/fonts/JoannaSansNova-Regular.ttf) format("truetype");
+}
+
+$primary_bold: "JoannaSansNova-Bold";
+$primary_medium: "JoannaSansNova-Medium";
+$primary_regular: "JoannaSansNova-Regular";

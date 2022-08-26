@@ -1,0 +1,59 @@
+@import "../../styles/styles.scss";
+
+.title {
+	color: #111d5e;
+	font-size: 58px;
+	font-weight: 600;
+	font-family: $primary_medium;
+	text-align: center;
+	margin-top: 3%;
+}
+
+.subtitle {
+	color: #111d5e;
+	font-size: 30px;
+	font-weight: 600;
+	font-family: $primary_regular;
+	text-align: center;
+	// margin-top: 3%;
+}
+
+.allToDosContainer {
+	// border: 1px solid black;
+	flex-direction: row;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 90%;
+	margin: auto;
+	margin-top: 2%;
+
+	.toDoContainer {
+		max-width: 45%;
+		min-width: 27%;
+	}
+}
+.addToDoContainer {
+	position: absolute;
+	bottom: 30px;
+	right: 80px;
+
+	div {
+		cursor: pointer;
+		width: 150px;
+		text-align: center;
+		padding: 20px;
+		border-radius: 40px;
+		background-color: #111d5e;
+		color: white;
+		font-size: 18px;
+		font-weight: 600;
+		font-family: $primary_medium;
+
+		&:hover {
+			background-color: coral;
+			box-shadow: 6px 4px 6px rgba(46, 54, 65, 0.2);
+		}
+	}
+}
