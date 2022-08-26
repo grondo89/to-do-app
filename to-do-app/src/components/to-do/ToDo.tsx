@@ -1,9 +1,9 @@
-import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { deleteToDoCall } from "../../API/toDoAPI";
 
-export type toDoProps = {
+export type ToDoProps = {
 	expireDate: "string";
 	creationDate: "string";
 	description: "string";
@@ -17,16 +17,16 @@ const ToDo = ({
 	description,
 	name,
 	id,
-}: toDoProps) => {
+}: ToDoProps) => {
 	const now = moment();
 
 	const deleteToDo = () => {
-		axios
-			.delete(
-				`https://0jj5dyvv79.execute-api.eu-west-1.amazonaws.com/dev/items/object/7471f91e-9d1f-42f3-bad0-0d145577f6e6/${name}`
-			)
-			.finally(() => window.location.reload());
+		if (!name) return;
+		deleteToDoCall(name).finally(() => window.location.reload());
 	};
+
+	const isOnTime =
+		moment(expireDate, "DD-MM-YYYY").valueOf() > now.toDate().getTime();
 
 	return (
 		<>
@@ -38,20 +38,55 @@ const ToDo = ({
 					width: "100%",
 					borderRadius: "20px",
 					padding: "20px",
+					marginBottom: "5%",
 				}}
 			>
-				<div>Name: {name}</div>
-				<div>Expiration Date: {expireDate}</div>
-				<div>Description: {description}</div>
-				<div>Creation Date: {moment(creationDate).format("DD/MM/YYYY")}</div>
-				<div>
-					On time?{" "}
-					{moment(expireDate, "DD-MM-YYYY").valueOf() >
-					now.toDate().getTime() ? (
-						<span>YES </span>
-					) : (
-						<span>NO</span>
-					)}{" "}
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						marginBottom: "1%",
+					}}
+				>
+					<span>Name: </span> <span> {name}</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						marginBottom: "1%",
+					}}
+				>
+					<span>Expiration Date: </span> <span> {expireDate}</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						marginBottom: "1%",
+					}}
+				>
+					<span>Description: </span>
+					<span style={{ maxWidth: "70%" }}> {description}</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						marginBottom: "1%",
+					}}
+				>
+					<span>Creation Date: </span>{" "}
+					<span> {moment(creationDate).format("DD/MM/YYYY")}</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						marginBottom: "1%",
+					}}
+				>
+					On time? {isOnTime ? <span>YES </span> : <span>NO</span>}{" "}
 				</div>
 				<div
 					style={{
@@ -64,9 +99,7 @@ const ToDo = ({
 					<Link to={`/todo/${name}`}>
 						<div>EDIT</div>
 					</Link>
-					{/* <Link to={"/"}> */}
 					<button onClick={deleteToDo}>DELETE</button>
-					{/* </Link> */}
 				</div>
 			</div>
 		</>

@@ -1,9 +1,9 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import moment from "moment";
+import { createOrEditToDoCall } from "../../API/toDoAPI";
 
-export type toDoProps = {
+export type ToDoProps = {
 	expireDate: "string";
 	creationDate: "string";
 	description: "string";
@@ -11,7 +11,7 @@ export type toDoProps = {
 	name: "string";
 };
 
-const CreateToDo = () => {
+const CreateToDoScreen = () => {
 	const navigate = useNavigate();
 
 	const [readyToCreate, setReadyToCreate] = useState(false);
@@ -25,22 +25,20 @@ const CreateToDo = () => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setToDo((prevState: toDoProps) => ({
+		setToDo((prevState: ToDoProps) => ({
 			...prevState,
 			[name]: value,
 		}));
 	};
 
-	const CreateNewToDo = () => {
+	const createNewToDo = () => {
 		const now = moment().milliseconds;
-		console.log("creandooo", moment(toDo.expireDate).milliseconds());
 		const isValidDate = moment(toDo.expireDate, "DD/MM/YYYY", true).isValid();
 
 		if (isValidDate) {
-			setToDo((prevState: toDoProps) => ({
+			setToDo((prevState: ToDoProps) => ({
 				...prevState,
 				creationDate: now,
-				// expireDate: moment(toDo.expireDate).milliseconds,
 			}));
 			setReadyToCreate(true);
 		} else {
@@ -50,13 +48,7 @@ const CreateToDo = () => {
 
 	useEffect(() => {
 		if (readyToCreate) {
-			axios
-				.post(
-					"https://0jj5dyvv79.execute-api.eu-west-1.amazonaws.com/dev/items",
-					toDo,
-					{ headers: { "Content-Type": "application/json" } }
-				)
-				.then((res) => console.log("akakkakkkakak", res))
+			createOrEditToDoCall(toDo)
 				.catch(() => alert("There has been an error with your request."))
 				.finally(() => navigate("/"));
 		}
@@ -119,11 +111,11 @@ const CreateToDo = () => {
 					<Link to={`/`}>
 						<div>GO BACK</div>
 					</Link>
-					<button onClick={CreateNewToDo}>CREATE TO DO</button>
+					<button onClick={createNewToDo}>CREATE TO DO</button>
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default CreateToDo;
+export default CreateToDoScreen;

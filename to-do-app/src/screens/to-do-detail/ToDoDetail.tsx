@@ -1,8 +1,12 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import moment from "moment";
+import {
+	createOrEditToDoCall,
+	deleteToDoCall,
+	getToDoByName,
+} from "../../API/toDoAPI";
 
 export type toDoProps = {
 	expireDate: "string";
@@ -15,8 +19,7 @@ export type toDoProps = {
 const ToDoDetail = () => {
 	const toDoParams = useParams();
 
-	const now = moment().format("DD/MM/YYYY");
-	const now2 = moment();
+	const now = moment();
 
 	const navigate = useNavigate();
 
@@ -27,15 +30,15 @@ const ToDoDetail = () => {
 		name: "",
 	});
 
+	const isOnTime =
+		moment(toDo.expireDate, "DD-MM-YYYY").valueOf() > now.toDate().getTime();
+
 	useEffect(() => {
-		axios
-			.get(
-				`https://0jj5dyvv79.execute-api.eu-west-1.amazonaws.com/dev/items/object/7471f91e-9d1f-42f3-bad0-0d145577f6e6/${toDoParams.name}`
-			)
-			.then((res) => {
-				setToDo(res.data);
-			});
-	}, []);
+		if (!toDoParams.name) return;
+		getToDoByName(toDoParams.name).then((res) => {
+			setToDo(res.data);
+		});
+	}, [toDoParams.name]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -46,23 +49,14 @@ const ToDoDetail = () => {
 	};
 
 	const deleteToDo = () => {
-		axios
-			.delete(
-				`https://0jj5dyvv79.execute-api.eu-west-1.amazonaws.com/dev/items/object/7471f91e-9d1f-42f3-bad0-0d145577f6e6/${toDoParams.name}`
-			)
-			.finally(() => navigate("/"));
+		if (!toDoParams.name) return;
+		deleteToDoCall(toDoParams.name).finally(() => navigate("/"));
 	};
 
 	const submitChange = () => {
 		const isValidDate = moment(toDo.expireDate, "DD/MM/YYYY", true).isValid();
 		if (isValidDate) {
-			axios
-				.post(
-					"https://0jj5dyvv79.execute-api.eu-west-1.amazonaws.com/dev/items",
-					toDo,
-					{ headers: { "Content-Type": "application/json" } }
-				)
-				.then((res) => console.log("akakkakkkakak", res))
+			createOrEditToDoCall(toDo)
 				.catch(() => alert("There has been an error with your request."))
 				.finally(() => navigate("/"));
 		} else {
@@ -92,8 +86,6 @@ const ToDoDetail = () => {
 							Expiration Date:{" "}
 							<input
 								style={{ width: "80%", textAlign: "right" }}
-								// value={new Date(toDo?.expireDate).toDateString()}
-								// value={moment(toDo?.expireDate).format("DD/MM/YYYY")}
 								value={toDo.expireDate}
 								onChange={handleChange}
 								name="expireDate"
@@ -112,15 +104,7 @@ const ToDoDetail = () => {
 							<span>Creation Date:</span>{" "}
 							<span>{moment(toDo?.creationDate).format("DD/MM/YYYY")}</span>
 						</div>
-						<div>
-							On time?{" "}
-							{moment(toDo.expireDate, "DD-MM-YYYY").valueOf() >
-							now2.toDate().getTime() ? (
-								<span>YES </span>
-							) : (
-								<span>NO</span>
-							)}{" "}
-						</div>
+						<div>On time? {isOnTime ? <span>YES </span> : <span>NO</span>}</div>
 					</>
 				)}
 				<div
@@ -141,8 +125,5 @@ const ToDoDetail = () => {
 		</>
 	);
 };
-
-// console.log("@@@@@@", moment(toDo.expireDate, "DD-MM-YYYY").valueOf());
-// console.log("sasdasdasd", now2.toDate().getTime());
 
 export default ToDoDetail;
