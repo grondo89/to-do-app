@@ -30,8 +30,15 @@
 	margin-top: 2%;
 
 	.toDoContainer {
-		max-width: 45%;
-		min-width: 27%;
+		width: 27%;
+
+		@include sm {
+			width: 80%;
+		}
+
+		@include md {
+			width: 35%;
+		}
 	}
 }
 .addToDoContainer {
