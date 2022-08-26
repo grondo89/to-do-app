@@ -40,11 +40,12 @@ const ToDo = ({
 					<span>Name: </span> <span> {name}</span>
 				</div>
 				<div className="toDoRowMenu">
-					<span>Expiration Date: </span> <span> {expireDate}</span>
+					<span>Expiration Date: </span>{" "}
+					<span className="informationContainer"> {expireDate}</span>
 				</div>
 				<div className="toDoRowMenu">
 					<span>Description: </span>
-					<span style={{ maxWidth: "70%" }}> {description}</span>
+					<span className="informationContainer"> {description}</span>
 				</div>
 				<div className="toDoRowMenu">
 					<span>Creation Date: </span>{" "}

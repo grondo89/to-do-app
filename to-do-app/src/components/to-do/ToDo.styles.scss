@@ -44,6 +44,15 @@
 		width: 80%;
 		text-align: right;
 	}
+
+	.informationContainer {
+		width: 70%;
+		text-align: right;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-left: 20px;
+	}
 }
 
 .bottomRowMenu {
